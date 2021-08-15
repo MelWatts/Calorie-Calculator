@@ -17,13 +17,39 @@ def get_female_data():
     """
     get all data filled in by user
     """
-    data_str = input("Please enter your height in cm ")
-    print(f"Your height is  {data_str}cm")
+    while True:
+        print("Please user numbers only, no words\n")
 
-    data_str = input("Please enter your weight in lb ")
-    print(f"Your weight is  {data_str}lb")
+        data_info = input("Please enter your height in cm ")
+        print(f"Your height is  {data_info}cm\n")
 
-    data_str = input("Please enter your Age ")
-    print(f"Your Age is  {data_str}")
+        data_info = input("Please enter your weight in lb ")
+        print(f"Your weight is  {data_info}lb\n")
 
-get_female_data()
+        data_info = input("Please enter your Age ")
+        print(f"Your Age is  {data_info}\n")
+
+        female_data = data_info.split(",")
+
+        if numbers_to_int(female_data):
+            print("Data is valid")
+            print(f"{data_info}")
+            break
+    
+    return female_data
+
+
+def numbers_to_int(values):
+    """
+    create all inputs from users into intergers
+    """
+    try:
+        [int(values) for values in values]
+    except ValueError as e:
+        print(f"Invalid data: {e}, please try again.\n")
+        return False
+    
+    return True
+
+
+data = get_female_data()
