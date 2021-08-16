@@ -23,13 +23,13 @@ def get_female_data():
         data_height_str = input("Please enter your height in cm ")
         print(f"Your height is  {data_height_str}cm\n")
 
-        data_weight_str = input("Please enter your weight in lb ")
-        print(f"Your weight is  {data_weight_str}lb\n")
+        data_weight_str = input("Please enter your weight in kg ")
+        print(f"Your weight is  {data_weight_str}kg\n")
 
         data_age_str = input("Please enter your Age ")
         print(f"Your Age is  {data_age_str}\n")
 
-        female_data = data_height_str.split(","), data_weight_str.split(","), data_age_str.split(",")     
+        female_data = data_height_str, data_weight_str, data_age_str     
 
         if validate_entry(female_data):
             print("Data is Valid")
@@ -44,7 +44,7 @@ def validate_entry(values):
     create all inputs from users into intergers
     """
     try:
-        [str(value) for value in values]
+        [int(value) for value in values]
         if len(values) != 3:
             raise ValueError(
                 f"Exactly 3 values required, you provided {len(values)}")
@@ -53,6 +53,7 @@ def validate_entry(values):
         return False
 
     return True
+
 
 def update_worksheet(data):
     """
@@ -65,6 +66,15 @@ def update_worksheet(data):
     print("worksheet updated successfully.\n")
 
 
-data = get_female_data()
-female_data = [str(num) for num in data]
-update_worksheet(female_data)
+def top():
+
+    """
+    Run all functions
+    """
+    data = get_female_data()
+    female_data = [int(num) for num in data]
+    update_worksheet(female_data)
+
+
+print("Welcome ladies to the calorie calculator for woman")
+top()
