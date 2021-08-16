@@ -20,36 +20,51 @@ def get_female_data():
     while True:
         print("Please user numbers only, no words\n")
 
-        data_info = input("Please enter your height in cm ")
-        print(f"Your height is  {data_info}cm\n")
+        data_height_str = input("Please enter your height in cm ")
+        print(f"Your height is  {data_height_str}cm\n")
 
-        data_info = input("Please enter your weight in lb ")
-        print(f"Your weight is  {data_info}lb\n")
+        data_weight_str = input("Please enter your weight in lb ")
+        print(f"Your weight is  {data_weight_str}lb\n")
 
-        data_info = input("Please enter your Age ")
-        print(f"Your Age is  {data_info}\n")
+        data_age_str = input("Please enter your Age ")
+        print(f"Your Age is  {data_age_str}\n")
 
-        female_data = data_info.split(",")
+        female_data = data_height_str.split(","), data_weight_str.split(","), data_age_str.split(",")     
 
-        if numbers_to_int(female_data):
-            print("Data is valid")
-            print(f"{data_info}")
+        if validate_entry(female_data):
+            print("Data is Valid")
+            print(female_data)
             break
-    
+
     return female_data
 
 
-def numbers_to_int(values):
+def validate_entry(values):
     """
     create all inputs from users into intergers
     """
     try:
-        [int(values) for values in values]
+        [str(value) for value in values]
+        if len(values) != 3:
+            raise ValueError(
+                f"Exactly 3 values required, you provided {len(values)}")
     except ValueError as e:
         print(f"Invalid data: {e}, please try again.\n")
         return False
-    
+
     return True
+
+def update_worksheet(data):
+    """
+    Receives a list of integers to be inserted into a worksheet
+    Update the relevant worksheet with the data provided
+    """
+    print("Updating worksheet...\n")
+    worksheet_to_update = SHEET.worksheet("female")
+    worksheet_to_update.append_row(data)
+    print("worksheet updated successfully.\n")
 
 
 data = get_female_data()
+female_data = [str(num) for num in data]
+update_worksheet(female_data)
