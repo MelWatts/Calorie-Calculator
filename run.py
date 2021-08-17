@@ -20,16 +20,16 @@ def get_female_data():
     while True:
         print("Please user numbers only, no words\n")
 
+        data_weight_str = input("Please enter your weight in kg  ")
+        print(f"Your weight is  {data_weight_str}kg\n")
+
         data_height_str = input("Please enter your height in cm ")
         print(f"Your height is  {data_height_str}cm\n")
-
-        data_weight_str = input("Please enter your weight in kg ")
-        print(f"Your weight is  {data_weight_str}kg\n")
 
         data_age_str = input("Please enter your Age ")
         print(f"Your Age is  {data_age_str}\n")
 
-        female_data = data_height_str, data_weight_str, data_age_str     
+        female_data = data_weight_str, data_height_str, data_age_str     
 
         if validate_entry(female_data):
             print("Data is Valid")
@@ -63,7 +63,7 @@ def update_worksheet(data):
     print("Updating worksheet...\n")
     worksheet_to_update = SHEET.worksheet("female")
     worksheet_to_update.append_row(data)
-    print("worksheet updated successfully.\n")
+    print("Calculating your BMR...\n")
 
 
 def top():
@@ -78,3 +78,26 @@ def top():
 
 print("Welcome ladies to the calorie calculator for woman")
 top()
+
+
+def test_all_rows():
+    calorie_calculator = SHEET.worksheet('female').get_all_values()[1:]
+    print(calorie_calculator)
+
+    i = 1
+    for row in calorie_calculator:
+        i += 1
+        bmr = 448 + (10 * int(row[0])) + (3 * int(row[1])) - 5 * int(row[2])
+        print(bmr)
+        SHEET.worksheet('female').update_cell(i, 4, bmr)
+
+
+def test_single_row():
+    calorie_calculator = SHEET.worksheet('female').get_all_values()
+    row = calorie_calculator[-1:][0]
+    bmr = 448 + (10 * int(row[0])) + (3 * int(row[1])) - 5 * int(row[2])
+    print(bmr)
+    SHEET.worksheet('female').update_cell(len(calorie_calculator), 4, bmr)
+
+
+test_single_row()
