@@ -100,4 +100,26 @@ def test_single_row():
     SHEET.worksheet('female').update_cell(len(calorie_calculator), 4, bmr)
 
 
+def test_all_deficit():
+    calorie_calculator = SHEET.worksheet('female').get_all_values()[1:]
+    print(calorie_calculator)
+
+    i = 1
+    for row in calorie_calculator:
+        i += 1
+        deficit = 448 + (10 * int(row[0])) + (3 * int(row[1])) - 5 * int(row[2]) -500
+        print(deficit)
+        SHEET.worksheet('female').update_cell(i, 5, deficit)
+
+
+def test_calorie_deficit():
+    calorie_calculator = SHEET.worksheet('female').get_all_values()
+    row = calorie_calculator[-1:][0]
+    deficit = 448 + (10 * int(row[0])) + (3 * int(row[1])) - 5 * int(row[2]) - 500
+    print(deficit)
+    SHEET.worksheet('female').update_cell(len(calorie_calculator), 5, deficit)
+
+
 test_single_row()
+print("Calculating your Calorie deficit...\n")
+test_calorie_deficit()
