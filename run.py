@@ -93,6 +93,8 @@ def test_all_rows():
 
 
 def test_single_row():
+    """
+    """
     calorie_calculator = SHEET.worksheet('female').get_all_values()
     row = calorie_calculator[-1:][0]
     bmr = 448 + (10 * int(row[0])) + (3 * int(row[1])) - 5 * int(row[2])
@@ -119,7 +121,30 @@ def test_calorie_deficit():
     print(deficit)
     SHEET.worksheet('female').update_cell(len(calorie_calculator), 5, deficit)
 
+def test_all_surplus():
+    calorie_calculator = SHEET.worksheet('female').get_all_values()[1:]
+    print(calorie_calculator)
+
+    i = 1
+    for row in calorie_calculator:
+        i += 1
+        surplus = 448 + (10 * int(row[0])) + (3 * int(row[1])) - 5 * int(row[2]) +500
+        print(surplus)
+        SHEET.worksheet('female').update_cell(i, 6, surplus)
+
+
+def test_calorie_surplus():
+    calorie_calculator = SHEET.worksheet('female').get_all_values()
+    row = calorie_calculator[-1:][0]
+    surplus = 448 + (10 * int(row[0])) + (3 * int(row[1])) - 5 * int(row[2]) + 500
+    print(surplus)
+    SHEET.worksheet('female').update_cell(len(calorie_calculator), 6, surplus)
+
 
 test_single_row()
+
 print("Calculating your Calorie deficit...\n")
 test_calorie_deficit()
+
+print("Calculating your Calorie surplus...\n")
+test_calorie_surplus()
