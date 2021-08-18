@@ -63,7 +63,12 @@ def update_worksheet(data):
     print("Updating worksheet...\n")
     worksheet_to_update = SHEET.worksheet("female")
     worksheet_to_update.append_row(data)
-    print("Calculating your BMR...\n")
+    print("The number of calories you need just\
+        for your body to function is called your\
+        basal metabolic rate, or BMR.\
+        If you know your BMR,you can better determine\
+        your caloric needs for healthy weight loss.\
+        Calculating your BMR...\n")
 
 
 def top():
@@ -78,6 +83,11 @@ def top():
 
 print("Welcome ladies to the calorie calculator for woman")
 top()
+
+"""
+Formula to work out BMR for a woman \
+https://www.garnethealth.org/news/basal-metabolic-rate-calculator
+"""
 
 
 def test_all_rows():
@@ -94,10 +104,11 @@ def test_all_rows():
 
 def test_single_row():
     """
+    Returns the users BMR using data entered
     """
     calorie_calculator = SHEET.worksheet('female').get_all_values()
     row = calorie_calculator[-1:][0]
-    bmr = 448 + (10 * int(row[0])) + (3 * int(row[1])) - 5 * int(row[2])
+    bmr = 448 + (10 * int(row[0])) + (3 * int(row[1])) - (5 * int(row[2]))
     print(bmr)
     SHEET.worksheet('female').update_cell(len(calorie_calculator), 4, bmr)
 
@@ -109,17 +120,22 @@ def test_all_deficit():
     i = 1
     for row in calorie_calculator:
         i += 1
-        deficit = 448 + (10 * int(row[0])) + (3 * int(row[1])) - 5 * int(row[2]) -500
+        deficit = 448 + (10 * int(row[0])) + (3 * int(row[1])) - (5 * int(row[2])) + 200
         print(deficit)
         SHEET.worksheet('female').update_cell(i, 5, deficit)
 
 
 def test_calorie_deficit():
+    """
+    Returns the users Calorie Deficit using data entered +
+    200 extra calories for activities.
+    """
     calorie_calculator = SHEET.worksheet('female').get_all_values()
     row = calorie_calculator[-1:][0]
-    deficit = 448 + (10 * int(row[0])) + (3 * int(row[1])) - 5 * int(row[2]) - 500
+    deficit = 448 + (10 * int(row[0])) + (3 * int(row[1])) - (5 * int(row[2])) + 200
     print(deficit)
     SHEET.worksheet('female').update_cell(len(calorie_calculator), 5, deficit)
+
 
 def test_all_surplus():
     calorie_calculator = SHEET.worksheet('female').get_all_values()[1:]
@@ -128,15 +144,19 @@ def test_all_surplus():
     i = 1
     for row in calorie_calculator:
         i += 1
-        surplus = 448 + (10 * int(row[0])) + (3 * int(row[1])) - 5 * int(row[2]) +500
+        surplus = 448 + (10 * int(row[0])) + (3 * int(row[1])) - (5 * int(row[2])) + 500
         print(surplus)
         SHEET.worksheet('female').update_cell(i, 6, surplus)
 
 
 def test_calorie_surplus():
+    """
+    Returns the users Calorie Deficit using data entered
+    + 500 extra calories for extra activities.
+    """
     calorie_calculator = SHEET.worksheet('female').get_all_values()
     row = calorie_calculator[-1:][0]
-    surplus = 448 + (10 * int(row[0])) + (3 * int(row[1])) - 5 * int(row[2]) + 500
+    surplus = 448 + (10 * int(row[0])) + (3 * int(row[1])) - (5 * int(row[2])) + 500
     print(surplus)
     SHEET.worksheet('female').update_cell(len(calorie_calculator), 6, surplus)
 
