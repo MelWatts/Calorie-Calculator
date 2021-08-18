@@ -20,13 +20,13 @@ def get_female_data():
     while True:
         print("Please user numbers only, no words\n")
 
-        data_weight_str = input("Please enter your weight in kg  ")
+        data_weight_str = input("Please enter your weight in kg  \n")
         print(f"Your weight is  {data_weight_str}kg\n")
 
-        data_height_str = input("Please enter your height in cm ")
+        data_height_str = input("Please enter your height in cm \n")
         print(f"Your height is  {data_height_str}cm\n")
 
-        data_age_str = input("Please enter your Age ")
+        data_age_str = input("Please enter your Age \n")
         print(f"Your Age is  {data_age_str}\n")
 
         female_data = data_weight_str, data_height_str, data_age_str     
